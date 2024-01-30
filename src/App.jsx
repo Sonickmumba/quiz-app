@@ -1,13 +1,13 @@
 import { useEffect, useReducer } from 'react'
 import './App.css'
 import Header from './components/header/Header'
-import Main from './components/main/Main'
+import Main from './components/main/Main';
+import Loader from './components/util/Loader'
+import Error from './components/util/Error'
 
 
 const initialState = {
-  questions: [
-
-  ],
+  questions: [],
 
   // 'loading', 'active', 'error', 'ready', 'finished', 'dataReceived'
   status: "loading"
@@ -28,7 +28,7 @@ const reducer = (state, action) => {
 
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{questions, status}, dispatch] = useReducer(reducer, initialState);
 
  
   useEffect (() => {
@@ -55,8 +55,9 @@ function App() {
       <div className='app'>
         <Header />
         <Main>
-          <p>1/15</p>
-          <p>Question?</p>
+          {status === 'loading' && <Loader />}
+          {status === 'error' && <Error />}
+
         </Main>
       </div>
   )
