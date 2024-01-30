@@ -18,7 +18,8 @@ const reducer = (state, action) => {
     case 'dataReceived':
       return {...state, questions: action.payload, status: 'ready'}
       
-    // case 'received'
+    case 'dataFailed':
+      return {...state, status: 'error'};
   
     default:
       throw new Error("Action unknown")
@@ -40,6 +41,9 @@ function App() {
           payload: data
         });
      } catch (error) {
+      dispatch({
+        type: 'dataFailed',
+      })
       console.error('Error fetching data:', error);
       throw error;
      } 
