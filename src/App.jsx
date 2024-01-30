@@ -4,6 +4,7 @@ import Header from './components/header/Header'
 import Main from './components/main/Main';
 import Loader from './components/util/Loader'
 import Error from './components/util/Error'
+import StartScreen from './components/util/StartScreen';
 
 
 const initialState = {
@@ -29,6 +30,7 @@ const reducer = (state, action) => {
 function App() {
 
   const [{questions, status}, dispatch] = useReducer(reducer, initialState);
+  const numQuestions = questions.length;
 
  
   useEffect (() => {
@@ -57,6 +59,7 @@ function App() {
         <Main>
           {status === 'loading' && <Loader />}
           {status === 'error' && <Error />}
+          {status === 'ready' && <StartScreen numQuestions={numQuestions} />}
 
         </Main>
       </div>
