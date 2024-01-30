@@ -1,10 +1,11 @@
 import './App.css'
+import Header from './components/header/Header'
 
 function App() {
 
   return (
-      <div>
-        This is a quiz app
+      <div className='app'>
+        <Header />
       </div>
   )
 }
