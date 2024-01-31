@@ -1,11 +1,16 @@
+/* eslint-disable react/prop-types */
 // import React from 'react'
 
-const Question = () => {
+import Options from "../option/Options";
+
+const Question = ({ question }) => {
+  console.log(question);
   return (
     <div>
-      Question
+      <h4>{question.question}</h4>
+      <Options question={question}/>
     </div>
-  )
-}
+  );
+};
 
-export default Question
+export default Question;
