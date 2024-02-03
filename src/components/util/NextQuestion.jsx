@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+/* eslint-disable react/prop-types */
 
 const NextQuestion = ({ dispatch, answer }) => {
   if(answer === null) return null;
