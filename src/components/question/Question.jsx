@@ -4,7 +4,6 @@
 import Options from "../option/Options";
 
 const Question = ({ question, dispatch, answer }) => {
-  console.log(question);
   return (
     <div>
       <h4>{question.question}</h4>

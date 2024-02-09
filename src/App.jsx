@@ -7,6 +7,7 @@ import Error from "./components/util/Error";
 import StartScreen from "./components/util/StartScreen";
 import Question from "./components/question/Question";
 import NextQuestion from "./components/util/NextQuestion";
+import ProgressBar from "./components/progress/ProgressBar";
 
 const initialState = {
   questions: [],
@@ -27,7 +28,16 @@ const reducer = (state, action) => {
     case "start":
       return { ...state, status: "active" };
     case "newAnswer":
-      return { ...state, answer: action.payload };
+      const question = state.questions.at(state.index);
+
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.points
+            : state.points,
+      };
     case "nextQuestion":
       return { ...state, index: state.index + 1, answer: null };
 
@@ -37,12 +47,13 @@ const reducer = (state, action) => {
 };
 
 function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
   const numQuestions = questions.length;
-
+  const totalPoints = questions.reduce((prev, cur) => prev + cur.points, 0);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,6 +74,7 @@ function App() {
     fetchData();
   }, []);
 
+  console.log(questions);
   return (
     <div className="app">
       <Header />
@@ -74,6 +86,12 @@ function App() {
         )}
         {status === "active" && (
           <>
+            <ProgressBar
+              index={index}
+              numberQuestions={numQuestions}
+              points={points}
+              totalPoints={totalPoints}
+            />
             <Question
               question={questions[index]}
               dispatch={dispatch}
