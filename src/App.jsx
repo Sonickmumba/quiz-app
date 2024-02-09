@@ -27,7 +27,7 @@ const reducer = (state, action) => {
       return { ...state, status: "error" };
     case "start":
       return { ...state, status: "active" };
-    case "newAnswer":
+    case "newAnswer": {
       const question = state.questions.at(state.index);
 
       return {
@@ -37,7 +37,7 @@ const reducer = (state, action) => {
           action.payload === question.correctOption
             ? state.points + question.points
             : state.points,
-      };
+      }};
     case "nextQuestion":
       return { ...state, index: state.index + 1, answer: null };
 
